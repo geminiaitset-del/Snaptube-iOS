@@ -13,7 +13,7 @@ jobs:
 
     steps:
     - name: Checkout Repository
-      uses: actions/checkout@v3
+      uses: actions/checkout@v4
 
     - name: Select Xcode Version
       run: sudo xcode-select -s /Applications/Xcode_14.2.app
@@ -27,7 +27,7 @@ jobs:
         echo "Building App..."
         
     - name: Upload IPA Artifact
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         name: Snaptube-iOS-IPA
         path: build/output/*.ipa
