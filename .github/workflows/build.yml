@@ -28,6 +28,9 @@ jobs:
         # Copy Info.plist
         cp Info.plist Payload/Snaptube.app/Info.plist
         
+        # Copy App Icons
+        cp AppIcon*.png Payload/Snaptube.app/
+        
         # Zip into IPA
         mkdir -p build/output
         zip -r build/output/Snaptube.ipa Payload
