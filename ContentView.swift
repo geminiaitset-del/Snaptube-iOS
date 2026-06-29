@@ -128,3 +128,12 @@ struct DownloadOptionsView: View {
         // Call SegmentedDownloader shared instance here
     }
 }
+
+@main
+struct SnaptubeApp: App {
+    var body: some Scene {
+        WindowGroup {
+            ContentView()
+        }
+    }
+}

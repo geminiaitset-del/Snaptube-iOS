@@ -15,20 +15,26 @@ jobs:
     - name: Checkout Repository
       uses: actions/checkout@v4
 
-    - name: Select Xcode Version
-      run: sudo xcode-select -s /Applications/Xcode_14.2.app
-
-    - name: Setup Project Structure
+    - name: Compile and Package IPA
       run: |
-        mkdir -p build/build.xarchive
+        mkdir -p Payload/Snaptube.app
         
-    - name: Compile and Build iOS App
-      run: |
-        echo "Building App..."
+        # Compile Swift files directly for iOS arm64 target
+        xcrun -sdk iphoneos swiftc -target arm64-apple-ios15.0 \
+          -o Payload/Snaptube.app/Snaptube \
+          ContentView.swift SnaptubeBrowser.swift SnaptubeExtractors.swift SegmentedDownloader.swift \
+          -framework SwiftUI -framework WebKit
+          
+        # Copy Info.plist
+        cp Info.plist Payload/Snaptube.app/Info.plist
+        
+        # Zip into IPA
+        mkdir -p build/output
+        zip -r build/output/Snaptube.ipa Payload
         
     - name: Upload IPA Artifact
       uses: actions/upload-artifact@v4
       with:
         name: Snaptube-iOS-IPA
-        path: build/output/*.ipa
-        if-no-files-found: ignore
+        path: build/output/Snaptube.ipa
+        if-no-files-found: error
