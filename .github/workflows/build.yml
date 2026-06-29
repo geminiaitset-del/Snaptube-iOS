@@ -31,6 +31,9 @@ jobs:
         # Copy App Icons
         cp AppIcon*.png Payload/Snaptube.app/
         
+        # Perform Ad-Hoc Code Signing (Required for TrollStore / Jailbreaks / Simulators)
+        codesign --force --sign - Payload/Snaptube.app/Snaptube
+        
         # Zip into IPA
         mkdir -p build/output
         zip -r build/output/Snaptube.ipa Payload
